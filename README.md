@@ -1,17 +1,17 @@
-Calculate letter statistic api
-Returns json data about letter statistic in string.
+# Calculate letter statistic API
+## Returns json data about letter statistic in string.
 
-NOTE !!!
+## NOTE !!!
 When you sending string as parameter in request, you should encode string by percent-encoding.
-String Before encode: #GeeKs01fOr@gEEks07                
-String after encode: 123o21j%40%21%23%21%24%21DSADAScxzda
+* String Before encode: #GeeKs01fOr@gEEks07                
+* String after encode: 123o21j%40%21%23%21%24%21DSADAScxzda
 
 
-URL /countAllStatistics/
-	Method:GET
+## URL /countAllStatistics/
+### Method:GET
 	URL Params Required: stringToCheck=[string]
-	Examples:
-	http://localhost:8080/countAllStatistics?stringToCheck=123o21j%40%21%23%21%24%21DSADAScxzda
+###	Examples:
+####	http://localhost:8080/countAllStatistics?stringToCheck=123o21j%40%21%23%21%24%21DSADAScxzda
 	Success Response:
 	Code: 200
 	Content: 
@@ -20,10 +20,9 @@ URL /countAllStatistics/
 	upperLetter: 6,
 	checkedString: "123o21j@!#!$!DSADAScxzda",
 	specialLetter: 6
-
 	}
 
-	http://localhost:8080/countAllStatistics?stringToCheck=
+####	http://localhost:8080/countAllStatistics?stringToCheck=
 	Error Response:
 	Code: 400 BAD REQUEST
 	Content: 
@@ -32,11 +31,11 @@ URL /countAllStatistics/
 	}
 
 
-URL /countSpecialLetter/
-	Method:GET
+## URL /countSpecialLetter/
+###	Method:GET
 	URL Params Required: stringToCheck=[string]
-	Examples:
-	http://localhost:8080/countSpecialLetter?stringToCheck=123o21j%40%21%23%21%24%21DSADAScxzda
+###	Examples:
+####	http://localhost:8080/countSpecialLetter?stringToCheck=123o21j%40%21%23%21%24%21DSADAScxzda
 	Success Response:
 	Code: 200
 	Content: 
@@ -45,7 +44,7 @@ URL /countSpecialLetter/
 	specialLetter: 6
 	}
 
-	http://localhost:8080/countSpecialLetter?stringToCheck=
+####	http://localhost:8080/countSpecialLetter?stringToCheck=
 	Error Response:
 	Code: 400 BAD REQUEST
 	Content: 
@@ -53,11 +52,11 @@ URL /countSpecialLetter/
 	Error: "String is empty"
 	}
 	
-URL /countLowerLetter/
-	Method:GET
+## URL /countLowerLetter/
+###	Method:GET
 	URL Params Required: stringToCheck=[string]
-	Examples:
-	http://localhost:8080/countLowerLetter?stringToCheck=123o21j%40%21%23%21%24%21DSADAScxzda
+###	Examples:
+####	http://localhost:8080/countLowerLetter?stringToCheck=123o21j%40%21%23%21%24%21DSADAScxzda
 	Success Response:
 	Code: 200
 	Content: 
@@ -66,7 +65,7 @@ URL /countLowerLetter/
 	checkedString: "123o21j@!#!$!DSADAScxzda"
 	}
 
-	http://localhost:8080/countSpecialLetter?stringToCheck=
+####	http://localhost:8080/countSpecialLetter?stringToCheck=
 	Error Response:
 	Code: 400 BAD REQUEST
 	Content: 
@@ -74,11 +73,11 @@ URL /countLowerLetter/
 	Error: "String is empty"
 	}
 	
-URL /countUpperLetter/
-	Method:GET
+## URL /countUpperLetter/
+###	Method:GET
 	URL Params Required: stringToCheck=[string]
-	Examples:
-	http://localhost:8080/countUpperLetter?stringToCheck=123o21j%40%21%23%21%24%21DSADAScxzda
+###	Examples:
+####	http://localhost:8080/countUpperLetter?stringToCheck=123o21j%40%21%23%21%24%21DSADAScxzda
 	Success Response:
 	Code: 200
 	Content: 
@@ -87,7 +86,7 @@ URL /countUpperLetter/
 	checkedString: "123o21j@!#!$!DSADAScxzda"
 	}
 
-	http://localhost:8080/countUpperLetter?stringToCheck=
+####	http://localhost:8080/countUpperLetter?stringToCheck=
 	Error Response:
 	Code: 400 BAD REQUEST
 	Content: 
@@ -95,7 +94,7 @@ URL /countUpperLetter/
 	Error: "String is empty"
 	}
 	
-Any other URL give PAGE NOT FOUNT ERROR
+# Any other URL are returing PAGE NOT FOUND ERROR
 
 	Error Response:
 	Code: 404 NOT FOUND
