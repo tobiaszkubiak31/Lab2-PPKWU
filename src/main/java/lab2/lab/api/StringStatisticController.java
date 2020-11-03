@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class StringStatisticController {
 
 	@GetMapping("/countLowerLetter")
-	public int calculateStatisticEndpoint(@RequestParam(value = "stringToCheck") String stringToCheck) {
-		return countLowerLetterInString("Test string static");
+	public int countLowerLetterEndpoint(@RequestParam(value = "stringToCheck") String stringToCheck) {
+		return countLowerLetterInString(stringToCheck);
 	}
 
 	int countLowerLetterInString(String stringToCheck){
