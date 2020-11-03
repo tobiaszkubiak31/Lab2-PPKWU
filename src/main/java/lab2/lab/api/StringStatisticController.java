@@ -10,25 +10,27 @@ import org.springframework.web.bind.annotation.RestController;
 public class StringStatisticController {
 
 	@GetMapping("/countAllStatistics")
-	public String countAllStatisticsEndpoint(@RequestParam(value = "stringToCheck") String stringToCheck,HttpServletResponse response) {
-		if(stringToCheck.isEmpty()){
-			response.setStatus( HttpServletResponse.SC_BAD_REQUEST  );
-			return new JSONObject()
-				.put("Error", "String is empty")
-				.toString();
+	public String countAllStatisticsEndpoint(
+		@RequestParam(value = "stringToCheck") String stringToCheck, HttpServletResponse response) {
+		if (stringToCheck.isEmpty()) {
+			return prepareResponseForInncorrectRequest(response);
 		}
 		return countAllStatistic(stringToCheck);
 	}
-	
+
 	@GetMapping("/countLowerLetter")
-	public String countLowerLetterEndpoint(@RequestParam(value = "stringToCheck") String stringToCheck,HttpServletResponse response) {
-		if(stringToCheck.isEmpty()){
-			response.setStatus( HttpServletResponse.SC_BAD_REQUEST  );
-			return new JSONObject()
-				.put("Error", "String is empty")
-				.toString();
+	public String countLowerLetterEndpoint(
+		@RequestParam(value = "stringToCheck") String stringToCheck, HttpServletResponse response) {
+		if (stringToCheck.isEmpty()) {
+			return prepareResponseForInncorrectRequest(response);
 		}
 		int countLowerLetter = countLowerLetterInString(stringToCheck);
+		return prepareJson(stringToCheck, countLowerLetter);
+	}
+
+	private String prepareJson(
+		@RequestParam("stringToCheck") String stringToCheck,
+		int countLowerLetter) {
 		return new JSONObject()
 			.put("checkedString", stringToCheck)
 			.put("lowerLetter", countLowerLetter)
@@ -36,14 +38,12 @@ public class StringStatisticController {
 	}
 
 	@GetMapping("/countUpperLetter")
-	public String countUpperLetterEndpoint(@RequestParam(value = "stringToCheck") String stringToCheck,HttpServletResponse response) {
-		if(stringToCheck.isEmpty()){
-			response.setStatus( HttpServletResponse.SC_BAD_REQUEST  );
-			return new JSONObject()
-				.put("Error", "String is empty")
-				.toString();
+	public String countUpperLetterEndpoint(
+		@RequestParam(value = "stringToCheck") String stringToCheck, HttpServletResponse response) {
+		if (stringToCheck.isEmpty()) {
+			return prepareResponseForInncorrectRequest(response);
 		}
-		int countUpperLetter =countUpperLetterInString(stringToCheck);
+		int countUpperLetter = countUpperLetterInString(stringToCheck);
 		return new JSONObject()
 			.put("checkedString", stringToCheck)
 			.put("upperLetter", countUpperLetter)
@@ -51,12 +51,10 @@ public class StringStatisticController {
 	}
 
 	@GetMapping("/countSpecialLetter")
-	public String countSpecialLetterEndpoint(@RequestParam(value = "stringToCheck") String stringToCheck,HttpServletResponse response) {
-		if(stringToCheck.isEmpty()){
-			response.setStatus( HttpServletResponse.SC_BAD_REQUEST  );
-			return new JSONObject()
-				.put("Error", "String is empty")
-				.toString();
+	public String countSpecialLetterEndpoint(
+		@RequestParam(value = "stringToCheck") String stringToCheck, HttpServletResponse response) {
+		if (stringToCheck.isEmpty()) {
+			return prepareResponseForInncorrectRequest(response);
 		}
 		int countUpperLetter = countSpecialLetterInString(stringToCheck);
 		return new JSONObject()
@@ -65,7 +63,7 @@ public class StringStatisticController {
 			.toString();
 	}
 
-	int countLowerLetterInString(String stringToCheck){
+	int countLowerLetterInString(String stringToCheck) {
 		String[] str = stringToCheck.split("");
 		int lowerCaseCounter = 0;
 		for (String s : str) {
@@ -77,7 +75,7 @@ public class StringStatisticController {
 	}
 
 
-	int countUpperLetterInString(String stringToCheck){
+	int countUpperLetterInString(String stringToCheck) {
 		String[] str = stringToCheck.split("");
 		int upperCaseCounter = 0;
 		for (String s : str) {
@@ -94,33 +92,43 @@ public class StringStatisticController {
 		String[] splittedString = stringToCheck.split("");
 		for (String letter : splittedString) {
 			char ch = letter.charAt(0);
-			if (ch >= 'A' && ch <= 'Z')
+			if (ch >= 'A' && ch <= 'Z') {
 				continue;
-			else if (ch >= 'a' && ch <= 'z')
+			} else if (ch >= 'a' && ch <= 'z') {
 				continue;
-			else if (ch >= '0' && ch <= '9')
+			} else if (ch >= '0' && ch <= '9') {
 				continue;
-			else
+			} else {
 				specialLetterCounter++;
+			}
 		}
-		return  specialLetterCounter;
+		return specialLetterCounter;
 	}
 
 	private String countAllStatistic(String stringToCheck) {
 		int countUpperLetter = countUpperLetterInString(stringToCheck);
 		int countLowerLetter = countLowerLetterInString(stringToCheck);
 		int countSpecialLetter = countSpecialLetterInString(stringToCheck);
-		return buildJsonResponse(countUpperLetter,countLowerLetter,countSpecialLetter,stringToCheck);
+		return buildJsonResponse(countUpperLetter, countLowerLetter, countSpecialLetter,
+			stringToCheck);
 	}
 
 	private String buildJsonResponse(int countUpperLetter, int countLowerLetter,
 		int countSpecialLetter, String stringToCheck) {
-		return  new JSONObject()
+		return new JSONObject()
 			.put("checkedString", stringToCheck)
 			.put("upperLetter", countUpperLetter)
 			.put("lowerLetter", countLowerLetter)
 			.put("specialLetter", countSpecialLetter)
 			.toString();
 	}
+
+	private String prepareResponseForInncorrectRequest(HttpServletResponse response) {
+		response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+		return new JSONObject()
+			.put("Error", "String is empty")
+			.toString();
+	}
+
 
 }
