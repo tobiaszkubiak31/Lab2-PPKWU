@@ -1,5 +1,6 @@
 package lab2.lab.api;
 
+import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -8,14 +9,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class StringStatisticController {
 
-	@GetMapping("/ccountAllStatistics")
-	public String countAllStatisticsEndpoint(@RequestParam(value = "stringToCheck") String stringToCheck) {
+	@GetMapping("/countAllStatistics")
+	public String countAllStatisticsEndpoint(@RequestParam(value = "stringToCheck") String stringToCheck,HttpServletResponse response) {
+		if(stringToCheck.isEmpty()){
+			response.setStatus( HttpServletResponse.SC_BAD_REQUEST  );
+			return new JSONObject()
+				.put("Error", "String is empty")
+				.toString();
+		}
 		return countAllStatistic(stringToCheck);
 	}
 	
 	@GetMapping("/countLowerLetter")
-	public String countLowerLetterEndpoint(@RequestParam(value = "stringToCheck") String stringToCheck) {
-
+	public String countLowerLetterEndpoint(@RequestParam(value = "stringToCheck") String stringToCheck,HttpServletResponse response) {
+		if(stringToCheck.isEmpty()){
+			response.setStatus( HttpServletResponse.SC_BAD_REQUEST  );
+			return new JSONObject()
+				.put("Error", "String is empty")
+				.toString();
+		}
 		int countLowerLetter = countLowerLetterInString(stringToCheck);
 		return new JSONObject()
 			.put("checkedString", stringToCheck)
@@ -24,7 +36,13 @@ public class StringStatisticController {
 	}
 
 	@GetMapping("/countUpperLetter")
-	public String countUpperLetterEndpoint(@RequestParam(value = "stringToCheck") String stringToCheck) {
+	public String countUpperLetterEndpoint(@RequestParam(value = "stringToCheck") String stringToCheck,HttpServletResponse response) {
+		if(stringToCheck.isEmpty()){
+			response.setStatus( HttpServletResponse.SC_BAD_REQUEST  );
+			return new JSONObject()
+				.put("Error", "String is empty")
+				.toString();
+		}
 		int countUpperLetter =countUpperLetterInString(stringToCheck);
 		return new JSONObject()
 			.put("checkedString", stringToCheck)
@@ -33,7 +51,13 @@ public class StringStatisticController {
 	}
 
 	@GetMapping("/countSpecialLetter")
-	public String countSpecialLetterEndpoint(@RequestParam(value = "stringToCheck") String stringToCheck) {
+	public String countSpecialLetterEndpoint(@RequestParam(value = "stringToCheck") String stringToCheck,HttpServletResponse response) {
+		if(stringToCheck.isEmpty()){
+			response.setStatus( HttpServletResponse.SC_BAD_REQUEST  );
+			return new JSONObject()
+				.put("Error", "String is empty")
+				.toString();
+		}
 		int countUpperLetter = countSpecialLetterInString(stringToCheck);
 		return new JSONObject()
 			.put("checkedString", stringToCheck)
