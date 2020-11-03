@@ -1,5 +1,6 @@
 package lab2.lab.api;
 
+import org.json.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,18 +14,31 @@ public class StringStatisticController {
 	}
 	
 	@GetMapping("/countLowerLetter")
-	public int countLowerLetterEndpoint(@RequestParam(value = "stringToCheck") String stringToCheck) {
-		return countLowerLetterInString(stringToCheck);
+	public String countLowerLetterEndpoint(@RequestParam(value = "stringToCheck") String stringToCheck) {
+
+		int countLowerLetter = countLowerLetterInString(stringToCheck);
+		return new JSONObject()
+			.put("checkedString", stringToCheck)
+			.put("specialLetter", countLowerLetter)
+			.toString();
 	}
 
 	@GetMapping("/countUpperLetter")
-	public int countUpperLetterEndpoint(@RequestParam(value = "stringToCheck") String stringToCheck) {
-		return countUpperLetterInString(stringToCheck);
+	public String countUpperLetterEndpoint(@RequestParam(value = "stringToCheck") String stringToCheck) {
+		int countUpperLetter =countUpperLetterInString(stringToCheck);
+		return new JSONObject()
+			.put("checkedString", stringToCheck)
+			.put("specialLetter", countUpperLetter)
+			.toString();
 	}
 
 	@GetMapping("/countSpecialLetter")
-	public int countSpecialLetterEndpoint(@RequestParam(value = "stringToCheck") String stringToCheck) {
-		return countSpecialLetterInString(stringToCheck);
+	public String countSpecialLetterEndpoint(@RequestParam(value = "stringToCheck") String stringToCheck) {
+		int countUpperLetter = countSpecialLetterInString(stringToCheck);
+		return new JSONObject()
+			.put("checkedString", stringToCheck)
+			.put("specialLetter", countUpperLetter)
+			.toString();
 	}
 
 	int countLowerLetterInString(String stringToCheck){
@@ -65,7 +79,7 @@ public class StringStatisticController {
 			else
 				specialLetterCounter++;
 		}
-		return specialLetterCounter;
+		return  specialLetterCounter;
 	}
 
 	private String countAllStatistic(String stringToCheck) {
@@ -77,10 +91,12 @@ public class StringStatisticController {
 
 	private String buildJsonResponse(int countUpperLetter, int countLowerLetter,
 		int countSpecialLetter, String stringToCheck) {
-		return "String:" + stringToCheck + " contains:\n"
-				+	countUpperLetter + " upper letters\n" +
-				+   countLowerLetter + "lower letters\n" +
-			 	+  	countSpecialLetter +" special letters\n";
+		return  new JSONObject()
+			.put("checkedString", stringToCheck)
+			.put("upperLetter", countUpperLetter)
+			.put("lowerLetter", countLowerLetter)
+			.put("specialLetter", countSpecialLetter)
+			.toString();
 	}
 
 }
