@@ -31,7 +31,7 @@ public class StringStatisticController {
 		int countLowerLetter = countLowerLetterInString(stringToCheck);
 		return new JSONObject()
 			.put("checkedString", stringToCheck)
-			.put("specialLetter", countLowerLetter)
+			.put("lowerLetter", countLowerLetter)
 			.toString();
 	}
 
@@ -46,7 +46,7 @@ public class StringStatisticController {
 		int countUpperLetter =countUpperLetterInString(stringToCheck);
 		return new JSONObject()
 			.put("checkedString", stringToCheck)
-			.put("specialLetter", countUpperLetter)
+			.put("upperLetter", countUpperLetter)
 			.toString();
 	}
 
