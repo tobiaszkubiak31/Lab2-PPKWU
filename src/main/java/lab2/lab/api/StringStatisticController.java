@@ -12,6 +12,11 @@ public class StringStatisticController {
 		return countLowerLetterInString(stringToCheck);
 	}
 
+	@GetMapping("/countUpperLetter")
+	public int countUpperLetterEndpoint(@RequestParam(value = "stringToCheck") String stringToCheck) {
+		return countUpperLetterInString(stringToCheck);
+	}
+
 	int countLowerLetterInString(String stringToCheck){
 		String[] str = stringToCheck.split("");
 		int lowerCaseCounter = 0;
@@ -21,6 +26,18 @@ public class StringStatisticController {
 			}
 		}
 		return lowerCaseCounter;
+	}
+
+
+	int countUpperLetterInString(String stringToCheck){
+		String[] str = stringToCheck.split("");
+		int upperCaseCounter = 0;
+		for (String s : str) {
+			if (Character.isUpperCase(s.charAt(0))) {
+				upperCaseCounter++;
+			}
+		}
+		return upperCaseCounter;
 	}
 
 
