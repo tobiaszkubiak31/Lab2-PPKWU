@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class StringStatisticController {
 
+	@GetMapping("/ccountAllStatistics")
+	public String countAllStatisticsEndpoint(@RequestParam(value = "stringToCheck") String stringToCheck) {
+		return countAllStatistic(stringToCheck);
+	}
+	
 	@GetMapping("/countLowerLetter")
 	public int countLowerLetterEndpoint(@RequestParam(value = "stringToCheck") String stringToCheck) {
 		return countLowerLetterInString(stringToCheck);
@@ -62,4 +67,20 @@ public class StringStatisticController {
 		}
 		return specialLetterCounter;
 	}
+
+	private String countAllStatistic(String stringToCheck) {
+		int countUpperLetter = countUpperLetterInString(stringToCheck);
+		int countLowerLetter = countLowerLetterInString(stringToCheck);
+		int countSpecialLetter = countSpecialLetterInString(stringToCheck);
+		return buildJsonResponse(countUpperLetter,countLowerLetter,countSpecialLetter,stringToCheck);
+	}
+
+	private String buildJsonResponse(int countUpperLetter, int countLowerLetter,
+		int countSpecialLetter, String stringToCheck) {
+		return "String:" + stringToCheck + " contains:\n"
+				+	countUpperLetter + " upper letters\n" +
+				+   countLowerLetter + "lower letters\n" +
+			 	+  	countSpecialLetter +" special letters\n";
+	}
+
 }
