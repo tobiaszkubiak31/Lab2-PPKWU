@@ -6,12 +6,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class StringStatisticController {
-	@GetMapping("/stringStatistic")
-	public String calculateStatisticEndpoint(@RequestParam(value = "stringToCheck") String stringToCheck) {
-		return checkStringStatistic("Test string static");
+
+	@GetMapping("/countLowerLetter")
+	public int calculateStatisticEndpoint(@RequestParam(value = "stringToCheck") String stringToCheck) {
+		return countLowerLetterInString("Test string static");
 	}
-	String checkStringStatistic(String stringToCheck){
-		return "Test";
+
+	int countLowerLetterInString(String stringToCheck){
+		String[] str = stringToCheck.split("");
+		int lowerCaseCounter = 0;
+		for (String s : str) {
+			if (Character.isLowerCase(s.charAt(0))) {
+				lowerCaseCounter++;
+			}
+		}
+		return lowerCaseCounter;
 	}
+
 
 }
